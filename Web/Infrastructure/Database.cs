@@ -20,7 +20,7 @@ namespace Web.Infrastructure
             var connectionString = $"Data Source=(LocalDb)\\MSSQLLocalDB;Initial Catalog=BrainWAre;Integrated Security=SSPI;AttachDBFilename={db}";
 
 
-            sqlite = new SQLiteConnection(connectionString);
+            sqlite = new SQLiteConnection($"Data Source={db}");
             sqlite.Open();
             //_connection = new SqlConnection(connectionString);
 
@@ -29,18 +29,36 @@ namespace Web.Infrastructure
 
         public DbDataReader ExecuteReader(string query)
         {
-           
-            
+
+
+            /*SQLiteDataAdapter ad;
+            //DataTable dt = new DataTable();
+
+            try
+            {
+                SQLiteCommand cmd;
+                sqlite.Open();  //Initiate connection to the db
+                cmd = sqlite.CreateCommand();
+                cmd.CommandText = query;  //set the passed query
+                ad = new SQLiteDataAdapter(cmd);
+                //ad.Fill(dt); //fill the datasource
+            }
+            catch (SQLiteException ex)
+            {
+                //Add your exception code here.
+            }*/
+
+            var sqlQuery = new SQLiteCommand(query, sqlite);
             //var sqlQuery = new SqlCommand(query, _connection);
 
-            return null;//sqlQuery.ExecuteReader();
+            return sqlQuery.ExecuteReader();
         }
 
         public int ExecuteNonQuery(string query)
         {
-            //var sqlQuery = new SqlCommand(query, _connection);
+            var sqlQuery = new SQLiteCommand(query, sqlite);
 
-            return 0;// sqlQuery.ExecuteNonQuery();
+            return sqlQuery.ExecuteNonQuery();
         }
 
     }
