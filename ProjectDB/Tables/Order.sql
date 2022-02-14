@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[Order]
 (
-    [order_id] INT IDENTITY (1,1) PRIMARY KEY,
+    [order_id] INTEGER PRIMARY KEY AUTOINCREMENT,
     [description] NVARCHAR(1000) NOT NULL, 
     [company_id] INT NOT NULL, 
-    CONSTRAINT [FK_order_to_company] FOREIGN KEY ([company_id]) REFERENCES [Company]([company_id])
+    CONSTRAINT [FK_order_to_company] FOREIGN KEY ([company_id]) REFERENCES [Company]([company_id]);
 )
