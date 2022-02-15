@@ -19,6 +19,8 @@ namespace Web.Infrastructure
             var sql1 =
                 "SELECT c.name, o.description, o.order_id FROM company c INNER JOIN [order] o on c.company_id=o.company_id";
 
+            database.OpenDB();
+
             var reader1 = database.ExecuteReader(sql1);
 
             var values = new List<Order>();
@@ -79,6 +81,7 @@ namespace Web.Infrastructure
                 }
             }
 
+            database.CloseDB();
             return values;
         }
     }

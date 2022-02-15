@@ -20,10 +20,18 @@ namespace Web.Infrastructure
             pathToDB = System.IO.Path.Combine(localPath.LocalPath, dbName);
             sqlite = new SQLiteConnection($"Data Source={pathToDB}");
 
-            sqlite.Open();
+           
 
         }
 
+        public void OpenDB()
+        {
+            sqlite.Open();
+        }
+        public void CloseDB()
+        {
+            sqlite.Close();
+        }
         public DbDataReader ExecuteReader(string query)
         {
             try
