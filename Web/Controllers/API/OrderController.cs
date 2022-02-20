@@ -16,9 +16,19 @@ namespace Web.Controllers
         [HttpGet]
         public IEnumerable<Order> GetOrders(int id = 1)
         {
-            var data = new OrderService();
 
-            return data.GetOrdersForCompany(id);
+            var data = new OrderService().GetOrdersForCompany(id);
+            if (data == null)
+            {
+                return new List<Order>
+                {
+                    new Order {
+                        Description = "Error. No data returned from database."
+                    }
+                };
+
+            }
+            return data;
         }
     }
 }
