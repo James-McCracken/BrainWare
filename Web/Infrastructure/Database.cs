@@ -6,22 +6,19 @@ using System.Web;
 namespace Web.Infrastructure
 {
     using System.Data.Common;
+    using System.Data.SqlClient;
     using System.Data.SQLite;
     public class Database
     {
-        private SQLiteConnection sqlite;
+        private readonly SQLiteConnection sqlite;
         private readonly Uri localPath;
         private readonly string pathToDB;
         private readonly string dbName = "BrainwareDB.db";
         public Database()
         {
-
             localPath = new Uri(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase));
             pathToDB = System.IO.Path.Combine(localPath.LocalPath, dbName);
             sqlite = new SQLiteConnection($"Data Source={pathToDB}");
-
-           
-
         }
 
         public void OpenDB()
@@ -36,6 +33,7 @@ namespace Web.Infrastructure
         {
             try
             {
+                
                 return new SQLiteCommand(query, sqlite).ExecuteReader();
                 
             }
